@@ -12,4 +12,5 @@ class Exp(MyExp):
         super(Exp, self).__init__()
         self.depth = 0.67
         self.width = 0.75
+        self.max_epoch = 25
         self.exp_name = os.path.split(os.path.realpath(__file__))[1].split(".")[0]

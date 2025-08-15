@@ -26,7 +26,7 @@ class Exp(BaseExp):
         self.width = 1.00
         # activation name. For example, if using "relu", then "silu" will be replaced to "relu".
         self.act = "silu"
-
+        self.max_epoch = 25
         # ---------------- dataloader config ---------------- #
         # set worker to 4 for shorter dataloader init time
         # If your training process cost many memory, reduce this value.
