@@ -255,18 +255,13 @@ class COCOEvaluator:
     def evaluate_prediction(self, data_dict, statistics):
         if not is_main_process():
             return 0, 0, None
-
         logger.info("Evaluate in main process...")
-
         annType = ["segm", "bbox", "keypoints"]
-
         inference_time = statistics[0].item()
         nms_time = statistics[1].item()
         n_samples = statistics[2].item()
-
         a_infer_time = 1000 * inference_time / (n_samples * self.dataloader.batch_size)
         a_nms_time = 1000 * nms_time / (n_samples * self.dataloader.batch_size)
-
         time_info = ", ".join(
             [
                 "Average {} time: {:.2f} ms".format(k, v)
@@ -276,12 +271,19 @@ class COCOEvaluator:
                 )
             ]
         )
-
         info = time_info + "\n"
-
         # Evaluate the Dt (detection) json comparing with the ground truth
         if len(data_dict) > 0:
             cocoGt = self.dataloader.dataset.coco
+            print(cocoGt.dataset.keys())
+            if 'info' not in cocoGt.dataset:
+                cocoGt.dataset['info'] = {
+                    "year": 2021,
+                    "version": "1.0",
+                    "description": "For object detection",
+                    "date_created": "2021"
+                }
+            
             # TODO: since pycocotools can't process dict in py36, write data to json file.
             if self.testdev:
                 json.dump(data_dict, open("./yolox_testdev_2017.json", "w"))
