@@ -11,7 +11,6 @@ tabulate
 psutil
 tensorboard
 Pillow
-loguru
 scikit-learn
 
 # verified versions
