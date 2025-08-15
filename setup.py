@@ -46,11 +46,13 @@ def get_long_description():
 
 def get_ext_modules():
     ext_module = []
-    if sys.platform != "win32":  # pre-compile ops on linux
-        assert TORCH_AVAILABLE, "torch is required for pre-compiling ops, please install it first."
-        # if any other op is added, please also add it here
-        from yolox.layers import FastCOCOEvalOp
-        ext_module.append(FastCOCOEvalOp().build_op())
+    if sys.platform != "win32" and TORCH_AVAILABLE:  # pre-compile ops on linux
+        try:
+            # if any other op is added, please also add it here
+            from yolox.layers import FastCOCOEvalOp
+            ext_module.append(FastCOCOEvalOp().build_op())
+        except ImportError:
+            print("[WARNING] Unable to import yolox.layers, skipping C++ extension compilation.")
     return ext_module
 
 
