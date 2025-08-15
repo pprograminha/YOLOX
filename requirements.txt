@@ -10,6 +10,8 @@ ninja
 tabulate
 psutil
 tensorboard
+Pillow
+scikit-learn
 
 # verified versions
 # pycocotools corresponds to https://github.com/ppwwyyxx/cocoapi
