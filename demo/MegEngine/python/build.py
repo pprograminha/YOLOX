@@ -11,7 +11,7 @@ from models.yolox import YOLOX
 
 
 def build_yolox(name="yolox-s"):
-    num_classes = 80
+    num_classes = 71
 
     # value meaning: depth, width
     param_dict = {
