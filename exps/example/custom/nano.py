@@ -26,7 +26,7 @@ class Exp(MyExp):
         self.train_ann = "instances_train2017.json"
         self.val_ann = "instances_val2017.json"
 
-        self.num_classes = 71
+        self.num_classes = 1
 
     def get_model(self, sublinear=False):
 
