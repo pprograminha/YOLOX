@@ -168,25 +168,24 @@ def image_demo(predictor, vis_folder, path, current_time, save_result):
             logger.info("Saving detection result in {}".format(save_file_name))
             cv2.imwrite(save_file_name, result_image)
             annotations = []
-            if outputs is not None and hasattr(outputs, "numpy"):
-                dets = outputs.numpy()
-                ratio = img_info["ratio"]
-                for det in dets:
-                    x1, y1, x2, y2, obj_conf, cls_conf, cls_id = det
-                    bbox = [
-                        float(x1 / ratio),
-                        float(y1 / ratio),
-                        float(x2 / ratio),
-                        float(y2 / ratio),
-                    ]
-                    annotation = {
-                        "bbox": bbox,
-                        "object_confidence": float(obj_conf),
-                        "class_confidence": float(cls_conf),
-                        "class_id": int(cls_id),
-                        "class_name": predictor.cls_names[int(cls_id)]
-                    }
-                    annotations.append(annotation)
+            dets = outputs.numpy()
+            ratio = img_info["ratio"]
+            for det in dets:
+                x1, y1, x2, y2, obj_conf, cls_conf, cls_id = det
+                bbox = [
+                    float(x1 / ratio),
+                    float(y1 / ratio),
+                    float(x2 / ratio),
+                    float(y2 / ratio),
+                ]
+                annotation = {
+                    "bbox": bbox,
+                    "object_confidence": float(obj_conf),
+                    "class_confidence": float(cls_conf),
+                    "class_id": int(cls_id),
+                    "class_name": predictor.cls_names[int(cls_id)]
+                }
+                annotations.append(annotation)
             
             base_name = os.path.splitext(os.path.basename(image_name))[0]
             json_file_name = os.path.join(save_folder, base_name + ".json")
