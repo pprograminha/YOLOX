@@ -203,7 +203,7 @@ def image_demo(predictor, vis_folder, path, current_time, save_result):
             logger.info("Saving detection result in {}".format(save_file_name))
             cv2.imwrite(save_file_name, result_image)
             annotations = []
-            dets = outputs[0].numpy()
+            dets = outputs[0].cpu().numpy()
             ratio = img_info["ratio"]
             for det in dets:
                 x1, y1, x2, y2, obj_conf, cls_conf, cls_id = det
