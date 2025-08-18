@@ -85,5 +85,5 @@
 #     "toothbrush",
 # )
 COCO_CLASSES = (
-    "Cracking"
+    "cracking"
 )
